@@ -1,0 +1,14 @@
+<h1>SPI - REGISTER</h1>
+{{#if error_message}}
+	<h2 style="color: red">{{error_message}}</h2>
+{{/if}}
+<form action="/register" method="post">
+	<div>
+		<p>username: </p>
+		<input type="text" name="username" id="idUser">
+		<p>password: </p>
+		<input type="password" name="password" id="idUser">
+	</div>
+	</br>
+	<input type="submit" value="Register">	
+</form>
