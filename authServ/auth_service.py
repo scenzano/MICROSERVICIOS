@@ -25,8 +25,8 @@ class AuthService():
 			if password != "":
 			#registro correcto , agregar a diccionario y mandar al login o home
 				self._usuarios_dict[user_name] = password
-				db.insert_user(user_name,password)
-				return True
+				if(db.insert_user(user_name,password)):
+					return True
 			else:
 			#password vacio
 				print "Debe ingresar una password"
