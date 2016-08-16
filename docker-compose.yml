@@ -16,3 +16,4 @@ services:
       - /tmp/mysql/:/var/lib/mysql/
     environment:
       MYSQL_ROOT_PASSWORD: lab4
+      MYSQL_DATABASE: spi

@@ -5,7 +5,7 @@ class DbService():
 	mysql_config = {
 		"user": "root",
 		"passwd": "lab4",
-		"host": "localhost",
+		"host": "db", #"host": "localhost", now is db to connect to mysql container 
 		"db": "spi"
 	}
 

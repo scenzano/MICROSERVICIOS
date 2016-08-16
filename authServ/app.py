@@ -73,7 +73,7 @@ def hello_json():
 
 
 if __name__== "__main__":
-	db.test_mysql()
+	#db.test_mysql()
 	#run(app, host="127.0.0.1", port=8081)
 	run(app, host="0.0.0.0", port=8081) # 0.0.0.0 para poder conectarme con la app dentro de docker
 
