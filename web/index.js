@@ -27,8 +27,6 @@ app.get('/home', function(req, res){
 	res.render("home");
 });
 
-//----------------------------
-
 //------Register-------------
 
 app.get('/register', function(req, res){
@@ -83,11 +81,7 @@ app.get('/register/:id', function(req, res){
 	}
 });
 
-//---------------------------------------------
-
-
 //-----------Login-----------------------------
-
 
 app.get('/login', function(req, res){
 	//res.sendFile(__dirname + "/" + "login.html");
@@ -143,11 +137,8 @@ app.get('/login/:id', function(req, res){
 	}
 });
 
-
-//--------------------------------------------
-
-
-var server = app.listen(8080, "127.0.0.1", function() {
+//var server = app.listen(8080, "127.0.0.1", function() {
+var server = app.listen(8080, "0.0.0.0", function() {
 	var host = server.address().address;
 	var port = server.address().port;
 	console.log("app listening at http://%s:%s", host, port);

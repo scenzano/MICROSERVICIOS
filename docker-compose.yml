@@ -17,3 +17,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: lab4
       MYSQL_DATABASE: spi
+  fe:
+    build: "./web"
+    ports:
+      - 8080:8080
+    depends_on:
+      - app
+    environment:
+      ENV_VAR1: pepito
