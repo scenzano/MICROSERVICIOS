@@ -2,28 +2,9 @@ from bottle import Bottle, route, run, request, template
 from auth_service import AuthService
 from db_cnx import DbService
 
-#Bottle es una clase que esta publicada a nivel paquete
-#podria ser import bottle.route
-#en python no se usa camelCase se usa guion bajo, en la clases si se usa camelCase
-
-#instanciamos en app bottle
-
 app = Bottle()
 auth = AuthService()
 db = DbService()
-
-#----METODO PARA TESTEAR CONEXION CON AUTH---
-"""
-@app.route("/hello", method="GET")
-def hello():
-	if auth.login("usuario",123):
-		return "hola" 
-	else:
-		return "no anduvo"
-"""
-
-#---------------------------------------------
-
 
 @app.route("/login", method="POST")
 def login_response():
@@ -37,7 +18,6 @@ def login_response():
 		return {"status": "False"}
 
 
-
 @app.route("/register", method="POST")
 def register_response():
 	data = request.json
@@ -49,7 +29,7 @@ def register_response():
 	else:
 		return {"status": "False"}
 
-#vamos a crear dos rutas nuevas "/" y la de abajo que hacen lo mismo
+
 @app.route("/", method="GET")
 @app.route("/hello/<name>", method="GET")	
 def greet(name="Stranger"):
@@ -66,9 +46,8 @@ def hello_json():
 # una de las mejores cosas es que python tiene como nativo JSON. uno abre las llaves y ya se sabe que es un JSON
 
 if __name__== "__main__":
-	#db.test_mysql()
-	#run(app, host="127.0.0.1", port=8081)
-	run(app, host="0.0.0.0", port=8081) # 0.0.0.0 para poder conectarme con la app dentro de docker
+	db.init_mysql()
+	run(app, host="0.0.0.0", port=8081)
 
 
 

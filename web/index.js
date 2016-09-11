@@ -1,8 +1,8 @@
-var express = require("express");				//primero se instancia express
+var express = require("express");				
 var request = require("request");
-var bodyParser = require("body-parser"); 		//Para instancear un parser del body es un modulo
+var bodyParser = require("body-parser"); 		
 var handlebars = require("express-handlebars")
-	.create({defaultLayout: "main"});			//lo instancia por defecto con un layout que se llame main
+	.create({defaultLayout: "main"});			
 
 var app = express();
 app.use(bodyParser.urlencoded({extended : true}));
@@ -11,9 +11,6 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + '/public'));
 
-//app es una instancia de express y express implemente el get de http
-//__dirname variable estatica que se instancia desde donde estoy parado
-//todos los get que le lleguen a "/" lo responde la funcion indicada
 
 app.get('/', function(req, res){
 	//if user is NOT authenticated
@@ -34,13 +31,12 @@ app.get('/register', function(req, res){
 	res.render("register");
 });
 
-
 app.post('/register', function(req, res){
 
 	var username = req.body.username;
 	var password = req.body.password;
 	var userInfo = {
-		uri: "http://127.0.0.1:8081/register",
+		uri: "http://app:8081/register",
 		method: "POST", 
 		headers: {
 			"Content-type": "application/json"
@@ -61,16 +57,6 @@ app.post('/register', function(req, res){
 			}
 		}
 	});
-	
-	/* HARDCODEADO
-	if(username == "usuario" && password == "123"){
-		//res.sendFile(__dirname + "/" + "home.html");
-		res.redirect("/home");
-	} else{
-		res.redirect("/register/1");
-	}
-	*/
-
 });
 
 app.get('/register/:id', function(req, res){
@@ -89,12 +75,11 @@ app.get('/login', function(req, res){
 });
 
 app.post('/login', function(req, res){
-	//POST: LOGIN
 
 	var username = req.body.username;
 	var password = req.body.password;
 	var userInfo = {
-		uri: "http://127.0.0.1:8081/login",
+		uri: "http://app:8081/login",
 		method: "POST", 
 		headers: {
 			"Content-type": "application/json"
@@ -115,19 +100,9 @@ app.post('/login', function(req, res){
 			}
 		}
 	});
-
-	/* HARDCODEADO
-	if(username == "usuario" && password == "123"){
-		//res.sendFile(__dirname + "/" + "home.html");
-		res.redirect("/home");
-	} else{
-		res.redirect("/login/1");
-	}
-	*/
-
 });
 
-//antes se hacia asi /login?id1 pero en rest no se recomienda.No es bueno para las cache
+
 app.get('/login/:id', function(req, res){
 	console.log(req.params.id);
 	var id = req.params.id;
@@ -137,7 +112,7 @@ app.get('/login/:id', function(req, res){
 	}
 });
 
-//var server = app.listen(8080, "127.0.0.1", function() {
+
 var server = app.listen(8080, "0.0.0.0", function() {
 	var host = server.address().address;
 	var port = server.address().port;
