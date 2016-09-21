@@ -1,0 +1,16 @@
+<h1>SP1 - New Picture</h1>
+	<form action="/newpic" method="post" enctype="multipart/form-data">
+		<div>
+			<p>Pick a picture: </p>
+			<input type="file" id="idPicture" name="picture" size="50">
+			<p>Pick a filter: </p>
+			<select id="idFilter" name="filter">
+				<option value="BW" selected="selected">Black & White</option>
+				<option value="SP">Sepia</option>
+				<option value="HF">Hefe</option>
+				<option value="VA">Valencia</option>
+			</select>
+		</div>
+		</br>
+		<input type="submit" value="process" id="btProcess">	
+	</form>
