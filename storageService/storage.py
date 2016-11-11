@@ -4,22 +4,24 @@ BaseRequest.MEMFILE_MAX = 1048576 # 1 mb to be able to receive picture on reques
 
 app = Bottle()
 
-@app.route("/create", method="POST")
+@app.route("/store", method="POST")
 def create_response():
+	answer = False
 	data = request.json
 	pictureBase64 = data["picture"]
 	picFilter = data["filter"]
 	path = "pictures/"
 	if not os.path.exists(path):
 		os.makedirs(path)
-	#filename = os.path.join(path, filename)
-	fh = open(path + "pepito.jpg", "wb")
-	fh.write(pictureBase64.decode('base64'))
-	fh.close()
-	return {"status": "OK"}
+	try:
+		f = open(path + "pepito.jpg", "wb")
+		answer = True
+		f.write(pictureBase64.decode('base64'))
+	except IOError:
+		print "Error: can\'t find file or read data"
+	else:
+		f.close()
+	return {"status": "OK"} if answer else {"status": "can't open file"}
 
 if __name__== "__main__":
 	run(app, host="0.0.0.0", port=8082)
-
-
-

@@ -1,2 +1,7 @@
+bcrypt==3.1.1
 bottle==0.12.9
+cffi==1.8.3
+pycparser==2.14
+PyJWT==1.4.2
 PyMySQL==0.7.3
+six==1.10.0

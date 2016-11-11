@@ -5,10 +5,7 @@ db = DbService()
 class AuthService():
 
 	def login(self,user_name,password):
-		if db.get_user(user_name,password):
-			return True
-		else:
-			return False
+		return True if db.get_user(user_name,password) else False
 
 	
 	def register(self,user_name, password):

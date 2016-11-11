@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --update py-pip
+RUN apk add --update --upgrade py-pip build-base libffi-dev python-dev
 RUN pip install --upgrade pip
 ADD . /usr/src/app
 WORKDIR /usr/src/app

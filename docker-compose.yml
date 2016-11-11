@@ -13,8 +13,8 @@ services:
     build: "./web"
     ports:
       - 8080:8080
-#    depends_on:
-#     - app
+    depends_on:
+     - db
     environment:
       ENV_VAR1: pepito
 
@@ -31,6 +31,6 @@ services:
     ports:
       - 8081:8081
     depends_on:
-      - db
+      - storage
     environment:
       ENV_VAR1: pepe

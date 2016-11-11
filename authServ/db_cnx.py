@@ -1,4 +1,4 @@
-import pymysql
+import pymysql, bcrypt
 
 class DbService():
 
@@ -8,7 +8,6 @@ class DbService():
 		"host": "db", #"host": "localhost", now is db to connect to mysql container,
 		"db": "spi"
 	}
-
 
 	def test_mysql(self):
 		try:
@@ -28,7 +27,7 @@ class DbService():
 		try:
 			cnx = pymysql.connect(**self.mysql_config)#este ** lo que hace es que convierte en tuplas de parametro= "valor", 
 			cursor = cnx.cursor()
-			create_users = "CREATE TABLE IF NOT EXISTS users (user_name VARCHAR(50) not null primary key, password VARCHAR(50) not null)"
+			create_users = "CREATE TABLE IF NOT EXISTS users (user_name VARCHAR(50) not null primary key, password VARCHAR(500) not null)"
 			cursor.execute(create_users)
 			cnx.commit();
 			cursor.close()
@@ -36,14 +35,15 @@ class DbService():
 			print "Failed to create table: {}".format(err)
 		finally:
 			cnx.close()
-	
+
 	def insert_user(self,user_name,password):
 		try:
 			result = True
 			cnx = pymysql.connect(**self.mysql_config)#este ** lo que hace es que convierte en tuplas de parametro= "valor", 
 			cursor = cnx.cursor()
 			insert_user = "INSERT INTO users (user_name, password) VALUES (%s, %s)"
-			data = (user_name, password)
+			hashed_password = bcrypt.hashpw(password.encode('UTF_8'), bcrypt.gensalt())
+			data = (user_name, hashed_password)
 			cursor.execute(insert_user, data)
 			cnx.commit()
 			cursor.close()
@@ -54,19 +54,18 @@ class DbService():
 			cnx.close()
 			return result
 		
-	def get_user(self,user_name,password):
+	def get_user(self, user_name, password):
 		try:
 			cnx = pymysql.connect(**self.mysql_config)#este ** lo que hace es que convierte en tuplas de parametro= "valor", 
 			cursor = cnx.cursor()
-			select_stmt = "SELECT COUNT(*) FROM users WHERE user_name = %s and password = %s"
-			data = (user_name, password)
+			select_stmt = "SELECT password FROM users WHERE user_name = %s"
+			data = (user_name)
 			cursor.execute(select_stmt, data)
-			result = cursor.fetchone()
+			result = cursor.fetchall()
 			cnx.commit();
 			cursor.close()
 		except pymysql.Error as err:
 			print "Failed to get user: {}".format(err)
-			#print err.args[0]
 		finally:
 			cnx.close()
-			return result[0]
+			return bcrypt.checkpw(password.encode('UTF_8'), result[0][0]) if result else False

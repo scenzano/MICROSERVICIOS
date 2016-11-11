@@ -1,0 +1,8 @@
+List to-do:
+
+See how to transform picture to base64.
+Move it from "Newpic" to container storage and save it.
+Also in storage create UUID and giveit back to FE.
+
+En index.js pasar foto a base 64 en new pic
+y en home/:id corregir error

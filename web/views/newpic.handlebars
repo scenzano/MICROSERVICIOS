@@ -1,4 +1,7 @@
 <h1>SP1 - New Picture</h1>
+	{{#if error_message}}
+		<h2 style="color: red">{{error_message}}</h2>
+	{{/if}}
 	<form action="/newpic" method="post" enctype="multipart/form-data">
 		<div>
 			<p>Pick a picture: </p>
